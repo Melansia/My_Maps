@@ -1,3 +1,5 @@
 package com.example.my_maps.models
 
-class UserMap(val title: String, val places: List<Place>)
+import java.io.Serializable
+
+class UserMap(val title: String, val places: List<Place>) : Serializable

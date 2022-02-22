@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.my_maps.models.Place
 import com.example.my_maps.models.UserMap
 
+const val EXTRA_USER_MAP = "EXTRA_USER_MAP"
 private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "onItemClick $position")
                 // When user taps on view in RV, navigate to new activity
                 val intent = Intent(this@MainActivity, DisplayMapActivity::class.java)
+                intent.putExtra(EXTRA_USER_MAP, userMaps[position])
                 startActivity(intent)
 
             }
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 "Memories from Santorini",
                 listOf(
                     Place(
-                        "Adronis Arcadia",
+                        "Andronis Arcadia",
                         "First Job on Santorini",
                         36.464076219644205,
                         25.375465626410556
@@ -110,22 +112,35 @@ class MainActivity : AppCompatActivity() {
                 )
             ),
             UserMap(
-                "Restaurants to try",
+                "Restaurants and CoffeeShops to try",
                 listOf(
-                    Place("Champ's Diner", "Retro diner in Brooklyn", 40.709, -73.941),
-                    Place("Althea", "Chicago upscale dining with an amazing view", 41.895, -87.625),
-                    Place("Shizen", "Elegant sushi in San Francisco", 37.768, -122.422),
                     Place(
-                        "Citizen Eatery",
-                        "Bright cafe in Austin with a pink rabbit",
-                        30.322,
-                        -97.739
+                        "Couleur Locale",
+                        "Retro diner in Brooklyn",
+                        37.97668477967003,
+                        23.724492816257083
                     ),
                     Place(
-                        "Kati Thai",
-                        "Authentic Portland Thai food, served with love",
-                        45.505,
-                        -122.635
+                        "Ρίζα Ρίζα",
+                        "A Cocktail bar with amazing burgers",
+                        37.96562225041097,
+                        23.725594087377033
+                    ),
+                    Place(
+                        "ShirakiAthens",
+                        "Traditional Japanese in Athens",
+                        37.97471847120148,
+                        23.7332011849714
+                    ),
+                    Place(
+                        "Virtuoso_enjoyment",
+                        "Pete's favorite Pastry shop",
+                        37.90012382756551, 23.75016590748628
+                    ),
+                    Place(
+                        "Romatella - Pizza al Taglio",
+                        "Authentic Italian Pizza",
+                        37.966951112258805, 23.728708839924245
                     )
                 )
             )
