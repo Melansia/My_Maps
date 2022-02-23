@@ -12,7 +12,7 @@ Time spent: **4** hours spent in total
 The following **required** functionality is completed:
 
 * [X] The list of map titles is displayed.
-* [ ] After tapping on a map title, the associated markers in the map are shown.
+* [X] After tapping on a map title, the associated markers in the map are shown.
 * [ ] The user is able to create a new map.
 
 The following **extensions** are implemented:
@@ -23,7 +23,7 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://media.giphy.com/media/lqaN7sEzETWelASyox/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://media.giphy.com/media/lF5uB9dZ5cPsO3r37D/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Giphy](https://giphy.com).
 
