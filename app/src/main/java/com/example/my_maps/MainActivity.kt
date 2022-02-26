@@ -1,6 +1,7 @@
 package com.example.my_maps
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +17,11 @@ import com.example.my_maps.models.Place
 import com.example.my_maps.models.UserMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.*
 
 const val EXTRA_USER_MAP = "EXTRA_USER_MAP"
 const val EXTRA_MAP_TITLE = "EXTRA_MAP_TITLE"
+const val FILENAME = "UserMap.data"
 const val REQUEST_CODE = 1234
 private const val TAG = "MainActivity"
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         rvMaps = findViewById(R.id.rvMaps)
         fabCreateMap = findViewById(R.id.fabCreateMap)
 
-        userMaps = generateSampleData().toMutableList()
+        userMaps = deserializeUserMaps(this).toMutableList()
         // Set layout manager on recycler view
         rvMaps.layoutManager = LinearLayoutManager(this)
         // Set adapter on recycler view
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, DisplayMapActivity::class.java)
                 intent.putExtra(EXTRA_USER_MAP, userMaps[position])
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         })
         rvMaps.adapter = mapAdapter
@@ -92,8 +96,29 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onActivityResult with new map title ${userMap.title}")
             userMaps.add(userMap)
             mapAdapter.notifyItemInserted(userMaps.size - 1)
+            serializeUserMaps(this, userMaps)
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun serializeUserMaps(context: Context, userMap: List<UserMap>) {
+        Log.i(TAG, "serializeUserMaps")
+        ObjectOutputStream(FileOutputStream(getDataFile(context))).use { it.writeObject(userMaps) }
+    }
+
+    private fun deserializeUserMaps(context: Context): List<UserMap> {
+        Log.i(TAG, "deserializeUserMaps")
+        val dataFile = getDataFile(context)
+        if (!dataFile.exists()) {
+            Log.i(TAG, "Data file does not exit yet")
+            return emptyList()
+        }
+        ObjectInputStream(FileInputStream(dataFile)).use { return it.readObject() as List<UserMap> }
+    }
+
+    private fun getDataFile(context: Context): File {
+        Log.i(TAG, "Getting file from directory ${context.filesDir}")
+        return File(context.filesDir, FILENAME)
     }
 
     private fun generateSampleData(): List<UserMap> {
@@ -130,21 +155,29 @@ class MainActivity : AppCompatActivity() {
                 )
             ),
             UserMap(
-                "Singapore travel itinerary",
+                "Once upon a time '2017' ",
                 listOf(
-                    Place("Gardens by the Bay", "Amazing urban nature park", 1.282, 103.864),
+                    Place("Inbi", "Great Moldovian meeting", 36.99647441097358, 21.648494371866093),
                     Place(
-                        "Jurong Bird Park",
-                        "Family-friendly park with many varieties of birds",
-                        1.319,
-                        103.706
+                        "Navarino Complex",
+                        "Great Moldovians shelters",
+                        36.99315005339711, 21.65695266441799
                     ),
-                    Place("Sentosa", "Island resort with panoramic views", 1.249, 103.830),
                     Place(
-                        "Botanic Gardens",
-                        "One of the world's greatest tropical gardens",
-                        1.3138,
-                        103.8159
+                        "The American Diner",
+                        "Second season job",
+                        36.994327238315655,
+                        21.652254775310546
+                    ),
+                    Place(
+                        "Kookoonari Beach Bar",
+                        "One of the season's greatest beach bar",
+                        36.986371513078446, 21.652993723928486
+                    ),
+                    Place(
+                        "Cafe Plateia",
+                        "Cheapest after work food around",
+                        36.999818612722954, 21.6814166
                     )
                 )
             ),
@@ -169,7 +202,7 @@ class MainActivity : AppCompatActivity() {
                 )
             ),
             UserMap(
-                "Restaurants and CoffeeShops to try",
+                "Restaurants and CoffeeShops in Athens to try",
                 listOf(
                     Place(
                         "Couleur Locale",
