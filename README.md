@@ -13,7 +13,7 @@ The following **required** functionality is completed:
 
 * [X] The list of map titles is displayed.
 * [X] After tapping on a map title, the associated markers in the map are shown.
-* [ ] The user is able to create a new map.
+* [X] The user is able to create a new map.
 
 The following **extensions** are implemented:
 
@@ -21,9 +21,11 @@ The following **extensions** are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walk-through of implemented features:
 
-<img src='https://media.giphy.com/media/lF5uB9dZ5cPsO3r37D/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+| Start     | Finish      |
+|------------|-------------|
+| <img src="https://media.giphy.com/media/lF5uB9dZ5cPsO3r37D/giphy.gif"> | <img src="https://media.giphy.com/media/MJWun6oXo0KDRtF3pl/giphy.gif" width=''> |
 
 GIF created with [Giphy](https://giphy.com).
 
